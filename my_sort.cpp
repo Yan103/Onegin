@@ -24,4 +24,7 @@ void bubble_sort(void** arr_index, int arr_lenght, size_t elem_size) {
     }
 }
 
-// todo my_qsort()
+int comp_func(const void* first_prm, const void* second_prm) {
+
+    return my_strcmp((const char*)first_prm, (const char*)second_prm);
+}
