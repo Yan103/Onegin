@@ -37,8 +37,8 @@ int file_output(const char* filename, char* text_ptr[]) {
         fputs(text_ptr[i], text_output_file);
     }
 
-    printf(GREEN("SUCCESS!!!\n"));
     fclose(text_output_file);
+    printf(GREEN("SUCCESS!!!\n"));
 
     return SUCCESS;
 }

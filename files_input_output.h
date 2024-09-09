@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+const char* FILE_INPUT_NAME  = "text.txt";
+const char* FILE_OUTPUT_NAME = "sorted_text.txt";
 const int   STR_COUNT        = 28;
 const int   STR_LENGHT       = 50;
 
