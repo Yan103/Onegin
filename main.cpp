@@ -15,7 +15,7 @@ int main() {
 
     file_input(FILE_INPUT_NAME, text, text_ptr, STR_LENGHT, STR_COUNT);
 
-    bubbleSort(text_ptr, STR_COUNT);
+    bubble_sort((void**)text_ptr, STR_COUNT, sizeof(text_ptr[0]));
 
     file_output(FILE_OUTPUT_NAME, text_ptr);
 

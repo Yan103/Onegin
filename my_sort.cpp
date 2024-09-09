@@ -14,12 +14,14 @@ void swap(void* first_ptr, void* second_ptr, size_t elem_size) {
     free(tmp); tmp = NULL;
 }
 
-void bubbleSort(char* arr_index[], int arr_lenght) {
+void bubble_sort(void** arr_index, int arr_lenght, size_t elem_size) {
     for (int i = 0; i < arr_lenght - 1; i++) {
         for (int j = 0; j < arr_lenght - 1; j++) {
-            if (my_strcmp(arr_index[j], arr_index[j + 1]) > 0) {
-                swap(arr_index[j], arr_index[j + 1], sizeof(arr_index[j]));
+            if (my_strcmp((const char*)arr_index[j], (const char*)arr_index[j + 1]) > 0) {
+                swap(arr_index[j], arr_index[j + 1], elem_size);
             }
         }
     }
 }
+
+// todo my_qsort()
