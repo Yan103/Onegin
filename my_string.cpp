@@ -17,7 +17,7 @@ int my_strcmp(const char* first_string, const char* second_string) {
     ASSERT(second_string != NULL, "Null pointer was passed");
 
     while(*first_string && (*first_string == *second_string)) {
-
+        
         first_string++;
         second_string++;
     }
