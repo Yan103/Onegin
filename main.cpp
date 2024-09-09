@@ -5,44 +5,20 @@
 #include "color_printf.h"
 #include "return_codes.h"
 #include "my_sort.h"
+#include "files_input_output.h"
 
-const char* filename   = "text.txt";
-const int   STR_COUNT  = 14;
-const int   STR_LENGHT = 50;
+const char* FILE_INPUT_NAME  = "text.txt";
+const char* FILE_OUTPUT_NAME = "sorted_text.txt";
 
 int main() {
-    FILE *text_file = fopen(filename, "r");
-
-    if (!text_file) {
-        printf(RED("Error occured while opening file\n"));
-
-        return FILE_ERROR;
-    }
-
     char  text[STR_COUNT][STR_LENGHT] = {};
     char* text_ptr[STR_COUNT]         = {};
 
-    for (int i = 0; i < STR_COUNT; i++) {
-        fgets(text[i], STR_LENGHT, text_file);
-        text_ptr[i] = &text[i][0];
-    }
-    printf("!\n");
-
-    for (int i = 0; i < STR_COUNT; i++) {
-        printf("%s", text_ptr[i]);
-    }
-    printf("--------------------\n");
+    file_input(FILE_INPUT_NAME, text, text_ptr, STR_LENGHT, STR_COUNT);
 
     bubbleSort(text_ptr, STR_COUNT);
 
-    for (int i = 0; i < STR_COUNT; i++) {
-        printf("%s", text_ptr[i]);
-    }
-    printf("--------------------\n");
-
-    /* const char* s1 = "\"ABC\"";
-    const char* s2 = "ABC";
-    printf("%d", my_strcmp(s1, s2)); */
+    file_output(FILE_OUTPUT_NAME, text_ptr);
 
     return 0;
 }

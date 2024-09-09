@@ -16,10 +16,15 @@ int my_strcmp(const char* first_string, const char* second_string) {
     ASSERT(first_string  != NULL, "Null pointer was passed");
     ASSERT(second_string != NULL, "Null pointer was passed");
 
+    while (*first_string  && isalpha(*first_string)  == 0) first_string++;
+    while (*second_string && isalpha(*second_string) == 0) second_string++;
+
     while(*first_string && (*first_string == *second_string)) {
-        
         first_string++;
         second_string++;
+
+        while (*first_string  && isalpha(*first_string)  == 0) first_string++;
+        while (*second_string && isalpha(*second_string) == 0) second_string++;
     }
 
     return *first_string - *second_string;
