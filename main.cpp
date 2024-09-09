@@ -6,6 +6,9 @@
 #include "my_sort.h"
 #include "files_input_output.h"
 
+const char* FILE_INPUT_NAME  = "text.txt";
+const char* FILE_OUTPUT_NAME = "sorted_text.txt";
+
 int main() {
     char  text[STR_COUNT][STR_LENGHT] = {};
     char* text_ptr[STR_COUNT]         = {};

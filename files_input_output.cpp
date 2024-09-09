@@ -38,6 +38,7 @@ int file_output(const char* filename, char* text_ptr[]) {
     }
 
     fclose(text_output_file);
+    
     printf(GREEN("SUCCESS!!!\n"));
 
     return SUCCESS;
