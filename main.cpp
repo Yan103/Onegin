@@ -16,9 +16,9 @@ int main() {
 
     file_input(FILE_INPUT_NAME, text, text_ptr, STR_LENGHT, STR_COUNT);
 
-    bubble_sort((void**)text_ptr, STR_COUNT, sizeof(char) * STR_LENGHT);
+    //!bubble_sort((void**)text_ptr, STR_COUNT, sizeof(char) * STR_LENGHT);
 
-    //qsort((void*)text_ptr, STR_COUNT, sizeof(text_ptr[0]), comp_func);
+    quick_sort(text_ptr, 0, STR_COUNT - 1, my_strcmp);
 
     file_output(FILE_OUTPUT_NAME, text_ptr);
 
