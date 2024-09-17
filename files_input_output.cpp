@@ -1,11 +1,27 @@
+/*!
+    \file
+    File with the input/output function
+*/
+
 #include "files_input_output.h"
 
 #include <stdio.h>
-#include "return_codes.h"
+
 #include "color_printf.h"
+#include "my_assert.h"
+#include "return_codes.h"
+#include "struct_text.h"
 
+/*!
+    The function what read text from file
+    \param  [in]    filename - the name of file to input
+    \param [out]     arr_ptr - pointer to the buffer for original text
+    \param  [in] file_lenght - the lenght of file
+*/
+int file_input(const char* filename, char* arr_text, size_t file_lenght) {
+    ASSERT(filename != NULL, "Null pointer was passed");
+    ASSERT(arr_text != NULL, "Null pointer was passed");
 
-int file_input(const char* filename, char text[STR_COUNT][STR_LENGHT], char* text_ptr[], int str_lenght, int str_count) {
     FILE *text_input_file = fopen(filename, "r");
 
     if (!text_input_file) {
@@ -14,32 +30,71 @@ int file_input(const char* filename, char text[STR_COUNT][STR_LENGHT], char* tex
         return FILE_ERROR;
     }
 
-    for (int i = 0; i < str_count; i++) {
-        fgets(text[i], str_lenght, text_input_file);
-        text_ptr[i] = &text[i][0];
-    }
+    *arr_text++ = '\0';
 
-    fclose(text_input_file);
+    size_t result = fread(arr_text, sizeof(char), file_lenght, text_input_file);
+    ASSERT(result <= file_lenght, "Memory error!");
 
-    return SUCCESS;
+    int count_lines = 0;
+    for (size_t i = 1; i <= result; i++) if (arr_text[i] == '\n') count_lines++;
+
+    return count_lines;
 }
 
-int file_output(const char* filename, char* text_ptr[]) {
-    FILE *text_output_file = fopen(filename, "w");
+/*!
+    The function of displaying text sorted in default mode
+    \param [in]    filename - the name of file to output
+    \param [in]    text_ptr - pointer to the array with pointers on lines
+    \param [in] count_lines - count of the lines
+*/
+void file_output(FILE* filename, char** text_ptr, int count_lines) {
+    ASSERT(filename != NULL, "Null pointer was passed");
+    ASSERT(text_ptr != NULL, "Null pointer was passed");
 
-    if (!text_output_file) {
-        printf(RED("Error occured while opening file\n"));
+    fputs("Default sorted Onegin text:\n", filename);
 
-        return FILE_ERROR;
+    for (int i = 0; i < count_lines; i++) {
+        fputs(text_ptr[i], filename);
+        fputc('\n', filename);
     }
+    fputc('\n', filename);
+}
 
-    for (int i = 0; i < STR_COUNT; i++) {
-        fputs(text_ptr[i], text_output_file);
+/*!
+    The function of displaying text sorted in reverse mode
+    \param [in]    filename - the name of file to output
+    \param [in]    text_ptr - pointer to the array with pointers on lines
+    \param [in] count_lines - count of the lines
+*/
+void file_reversed_output(FILE* filename, char** text_ptr, int count_lines) {
+    ASSERT(filename != NULL, "Null pointer was passed");
+    ASSERT(text_ptr != NULL, "Null pointer was passed");
+
+    fputs("Reversed sorted Onegin text:\n", filename);
+
+    for (int i = 0; i < count_lines; i++) {
+        while (*text_ptr[i]) { *text_ptr[i]--; }
+        *text_ptr[i]++;
+        fputs(text_ptr[i], filename);
+        fputc('\n', filename);
     }
+    fputc('\n', filename);
+}
 
-    fclose(text_output_file);
-    
-    printf(GREEN("SUCCESS!!!\n"));
+/*!
+    The function of displaying original text
+    \param [in]     filename - the name of file to output
+    \param [in]      arr_ptr - pointer to the array with original text
+    \param [in] file_symbols - count of the symbols in file
+*/
+void write_original_text(FILE* filename, char* arr_text, int file_symbols) {
+    ASSERT(filename != NULL, "Null pointer was passed");
+    ASSERT(arr_text != NULL, "Null pointer was passed");
 
-    return SUCCESS;
+    fputs("Original Onegin text:\n", filename);
+
+    for (int i = 1; i < file_symbols; i++) {
+        if (arr_text[i] == '\0') fputc('\n', filename);
+        else fputc(arr_text[i], filename);
+    }
 }

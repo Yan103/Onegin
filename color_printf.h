@@ -24,4 +24,5 @@
 #define MAGENTA(str) MAGENTA_CLR str END
 #define CYAN(str)    CYAN_CLR    str END
 #define WHITE(str)   WHITE_CLR   str END
+
 #endif // COLOR_PRINTF_H
