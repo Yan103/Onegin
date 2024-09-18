@@ -16,7 +16,6 @@
 #include "struct_text.h"
 #include "terminal_calls.h"
 
-//todo README.md
 //! quick_sort
 
 /*!
