@@ -46,10 +46,10 @@ And finally, how is the original text of the poem displayed?:
 The program can also receive command line arguments as input:
 
 ```bash
--h calls the help commands
--f {file name} starts the sort mode (by reading data from a file). If If you did not transfer the file, then the standard one (text.txt) is used
-if you do not specify parameters, then -f will be used by default
--c secret command for DED // Don't tell him)
+-h calls the hеlp commands
+-f {file name} starts the sоrt mode (by reading data from a file). If If you did not transfer the file, thеn the standard one (text.txt) is used
+if yоu dо not specify parameters, thеn -f will be used by default
+-c secret cоmmand fоr DED // Do not tell him)
 ```
 
 ## Contact information
