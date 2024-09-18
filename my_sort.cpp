@@ -3,12 +3,11 @@
     File with functions, what sort onegin lines
 */
 
-#include "my_sort.h"
-
 #include <stdlib.h>
 #include <string.h>
 
 #include "my_assert.h"
+#include "my_sort.h"
 #include "my_string.h"
 
 /*!
@@ -39,19 +38,12 @@ void my_sort(void* arr, size_t elem_count, size_t elem_size, int (*comp_func)(co
     ASSERT(arr       != NULL, "Null pointer was passed");
     ASSERT(comp_func != NULL, "Null pointer was passed");
 
-    size_t* data = (size_t*)(arr);
+    size_t data = (size_t)(arr);
 
-    for (size_t i = 0; i < elem_count - 1; i++) {
-        for (size_t j = 0; j < elem_count; j++) {
-            //printf("%s %s %d\n", *(data + 2 * i), *(data + 2 * j), comp_func((const void*)(*(data + 2 * j)), (const void*)(*(data + 2 * i))));
-            //void_swap((void*)(data + 2 * i), (void*)(data + 2 * j), elem_size);
-            //printf("----------------------\n");
-
-            if (comp_func((const void*)(*(data + 2 * i)), (const void*)(*(data + 2 * j))) > 0) {
-                printf("%s %s %d\n", *(data + 2 * i), *(data + 2 * j), (const void*)(*(data + 2 * i)), (const void*)(*(data + 2 * j)));
-                void_swap((void*)(data + 2 * i), (void*)(data + 2 * j), elem_size);
-                printf("%s %s\n", *(data + 2 * i), *(data + 2 * j));
-                printf("----------------------\n");
+    for (size_t i = 0; i < elem_count; i++) {
+        for (size_t j = i; j < elem_count; j++) {
+            if (comp_func((const void*)(data + i * elem_size), (const void*)(data + j * elem_size)) > 0) {
+                void_swap((void*)(data + i * elem_size), (void*)(data + j * elem_size), elem_size);
             }
         }
     }
@@ -72,6 +64,20 @@ int default_compare(const void* arg1_ptr, const void* arg2_ptr) {
     return my_strcmp(first_str_ptr, second_str_ptr);
 }
 
+int struct_cmp(const void *s1, const void *s2) {
+    const str_info *s1_typed = (const str_info*) s1;
+    const str_info *s2_typed = (const str_info*) s2;
+
+    return my_strcmp(s1_typed->text_start, s2_typed->text_start);
+}
+
+int struct_cmp_reverse(const void *s1, const void *s2) {
+    const str_info *s1_typed = (const str_info*) s1;
+    const str_info *s2_typed = (const str_info*) s2;
+
+    return reversed_strcmp(s1_typed->text_end, s2_typed->text_end);
+}
+
 /*!
     The function what prepare the parametrs (from void*) for launch the reversed compare function
     \param  [in]  arg1_ptr - the pointer on first comparate function
@@ -81,8 +87,8 @@ int reversed_compare(const void* arg1_ptr, const void* arg2_ptr) {
     ASSERT(arg1_ptr != NULL, "Null pointer was passed");
     ASSERT(arg2_ptr != NULL, "Null pointer was passed");
 
-    const char*  first_str_ptr = (const char*)(arg1_ptr);
-    const char* second_str_ptr = (const char*)(arg2_ptr);
+    const char*  first_str_ptr = (const char*)(arg1_ptr) - 1;
+    const char* second_str_ptr = (const char*)(arg2_ptr) - 1;
 
     return reversed_strcmp(first_str_ptr, second_str_ptr);
 }

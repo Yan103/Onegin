@@ -24,6 +24,8 @@ int file_input(const char* filename, char* arr_text, size_t file_lenght) {
 
     FILE *text_input_file = fopen(filename, "r");
 
+    //fprintf(stderr, "%p\n", text_input_file);
+    
     if (!text_input_file) {
         printf(RED("Error occured while opening file\n"));
 

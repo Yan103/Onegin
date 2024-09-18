@@ -26,6 +26,8 @@ void my_sort(void* arr, size_t elem_count, size_t elem_size, int (*comp_func)(co
 */
 int default_compare(const void* arg1_ptr, const void* arg2_ptr);
 
+int struct_cmp(const void *s1, const void *s2);
+
 /*!
     The function what prepare the parametrs (from void*) for launch the reversed compare function
     \param  [in]  arg1_ptr - the pointer on first comparate function
@@ -40,6 +42,7 @@ int reversed_compare(const void* arg1_ptr, const void* arg2_ptr);
     \param [out]   elem_size - the size of elements in pointers
 */
 void void_swap(void* first_ptr, void* second_ptr, size_t elem_size);
+int struct_cmp_reverse(const void *s1, const void *s2);
 
 //!int partition(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2));
 //!void my_quick_sort(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2));
