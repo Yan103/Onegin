@@ -8,11 +8,15 @@
 
 #include <stdio.h>
 
+struct str_info {
+    char* text_start;
+    char*   text_end;
+};
+
 /// The struct Text (full information about Onegin)
 struct Text {
     char*             buffer_ptr;
-    char**        text_start_ptr;
-    char**          text_end_ptr;
+    str_info*           text_ptr;
     int              lines_count;
     int             file_symbols;
     const char*  file_input_name;

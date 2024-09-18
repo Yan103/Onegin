@@ -20,7 +20,7 @@ size_t onegin_info_fill(Text *onegin_ptr) {
 
     if (file_lenght == 0) {
         onegin_ptr->file_symbols = 0;
-        
+
         return 0;
     }
 
@@ -29,11 +29,8 @@ size_t onegin_info_fill(Text *onegin_ptr) {
 
     onegin_ptr->lines_count = file_input(onegin_ptr->file_input_name, onegin_ptr->buffer_ptr, file_lenght);
 
-    onegin_ptr->text_start_ptr = (char**) calloc(onegin_ptr->lines_count, sizeof(char*));
-    ASSERT(onegin_ptr->text_start_ptr != NULL, "Memory error!");
-
-    onegin_ptr->text_end_ptr = (char**) calloc(onegin_ptr->lines_count, sizeof(char*));
-    ASSERT(onegin_ptr->text_end_ptr != NULL, "Memory error!");
+    onegin_ptr->text_ptr = (str_info*) calloc(onegin_ptr->lines_count, sizeof(str_info));
+    ASSERT(onegin_ptr->text_ptr != NULL, "Memory error!");
 
     onegin_ptr->file_symbols = (int)(file_lenght - onegin_ptr->lines_count);
 

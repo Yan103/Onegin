@@ -25,7 +25,7 @@ int file_input(const char* filename, char* arr_text, size_t file_lenght);
     \param [in]    text_ptr - pointer to the array with pointers on lines
     \param [in] count_lines - count of the lines
 */
-void file_output(FILE* filename, char** text_ptr, int count_lines);
+void file_output(FILE* filename, str_info* text_ptr, int count_lines);
 
 /*!
     The function of displaying original text
@@ -41,6 +41,6 @@ void write_original_text(FILE* filename, char* arr_text, int file_symbols);
     \param [in]    text_ptr - pointer to the array with pointers on lines
     \param [in] count_lines - count of the lines
 */
-void file_reversed_output(FILE* filename, char** text_ptr, int count_lines);
+void file_reversed_output(FILE* filename, str_info* text_ptr, int count_lines);
 
 #endif // FILES_INPUT_OUTPUT_H

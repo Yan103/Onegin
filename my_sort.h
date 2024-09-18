@@ -17,7 +17,7 @@
     \param  [in]  comp_func1 - the pointer on first comparate function
     \param  [in]  comp_func2 - the pointer on second comparate function
 */
-void my_sort(Text* onegin, int (*comp_func1)(const void*, const void*), int (*compare_func2)(const void*, const void*));
+void my_sort(void* arr, size_t elem_count, size_t elem_size, int (*comp_func)(const void*, const void*));
 
 /*!
     The function what prepare the parametrs (from void*) for launch the default compare function

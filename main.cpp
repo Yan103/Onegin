@@ -76,7 +76,7 @@ int main(const int argc, char* const *argv) {
         return FILE_ERROR;
     }
 
-    my_sort(&onegin, default_compare, reversed_compare);
+    my_sort((void*)onegin.text_ptr, onegin.lines_count, sizeof(str_info), default_compare);
 
     write_test_to_file(&onegin);
 
