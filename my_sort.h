@@ -17,7 +17,7 @@
     \param  [in]  comp_func1 - the pointer on first comparate function
     \param  [in]  comp_func2 - the pointer on second comparate function
 */
-void my_sort(Text* onegin, int (*comp_func1)(const void*, const void*), int (*compare_func2)(const void*, const void*));
+void my_sort(void* arr, size_t elem_count, size_t elem_size, int (*comp_func)(const void*, const void*));
 
 /*!
     The function what prepare the parametrs (from void*) for launch the default compare function
@@ -25,6 +25,8 @@ void my_sort(Text* onegin, int (*comp_func1)(const void*, const void*), int (*co
     \param  [in]  arg2_ptr - the pointer on second argument
 */
 int default_compare(const void* arg1_ptr, const void* arg2_ptr);
+
+int struct_cmp(const void *s1, const void *s2);
 
 /*!
     The function what prepare the parametrs (from void*) for launch the reversed compare function
@@ -40,6 +42,7 @@ int reversed_compare(const void* arg1_ptr, const void* arg2_ptr);
     \param [out]   elem_size - the size of elements in pointers
 */
 void void_swap(void* first_ptr, void* second_ptr, size_t elem_size);
+int struct_cmp_reverse(const void *s1, const void *s2);
 
 //!int partition(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2));
 //!void my_quick_sort(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2));

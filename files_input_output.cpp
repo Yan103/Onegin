@@ -24,6 +24,8 @@ int file_input(const char* filename, char* arr_text, size_t file_lenght) {
 
     FILE *text_input_file = fopen(filename, "r");
 
+    //fprintf(stderr, "%p\n", text_input_file);
+    
     if (!text_input_file) {
         printf(RED("Error occured while opening file\n"));
 
@@ -47,14 +49,14 @@ int file_input(const char* filename, char* arr_text, size_t file_lenght) {
     \param [in]    text_ptr - pointer to the array with pointers on lines
     \param [in] count_lines - count of the lines
 */
-void file_output(FILE* filename, char** text_ptr, int count_lines) {
+void file_output(FILE* filename, str_info* text_ptr, int count_lines) {
     ASSERT(filename != NULL, "Null pointer was passed");
     ASSERT(text_ptr != NULL, "Null pointer was passed");
 
     fputs("Default sorted Onegin text:\n", filename);
 
     for (int i = 0; i < count_lines; i++) {
-        fputs(text_ptr[i], filename);
+        fputs(text_ptr[i].text_start, filename);
         fputc('\n', filename);
     }
     fputc('\n', filename);
@@ -66,16 +68,16 @@ void file_output(FILE* filename, char** text_ptr, int count_lines) {
     \param [in]    text_ptr - pointer to the array with pointers on lines
     \param [in] count_lines - count of the lines
 */
-void file_reversed_output(FILE* filename, char** text_ptr, int count_lines) {
+void file_reversed_output(FILE* filename, str_info* text_ptr, int count_lines) {
     ASSERT(filename != NULL, "Null pointer was passed");
     ASSERT(text_ptr != NULL, "Null pointer was passed");
 
     fputs("Reversed sorted Onegin text:\n", filename);
 
     for (int i = 0; i < count_lines; i++) {
-        while (*text_ptr[i]) { *text_ptr[i]--; }
-        *text_ptr[i]++;
-        fputs(text_ptr[i], filename);
+        while (*text_ptr[i].text_end) { *text_ptr[i].text_end--; }
+        *text_ptr[i].text_end++;
+        fputs(text_ptr[i].text_end, filename);
         fputc('\n', filename);
     }
     fputc('\n', filename);

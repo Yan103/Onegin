@@ -25,10 +25,10 @@ void read_text_from_file(Text* onegin_ptr) {
     int j = 0;
     for (size_t i = 1; i < file_lenght - onegin_ptr->lines_count; i++) {
         if (onegin_ptr->buffer_ptr[i - 1] == '\0') {
-            onegin_ptr->text_start_ptr[j] = &onegin_ptr->buffer_ptr[i];
+            onegin_ptr->text_ptr[j].text_start = &onegin_ptr->buffer_ptr[i];
         }
         if (onegin_ptr->buffer_ptr[i + 1] == '\n') {
-            onegin_ptr->text_end_ptr[j] = &onegin_ptr->buffer_ptr[i];
+            onegin_ptr->text_ptr[j].text_end = &onegin_ptr->buffer_ptr[i];
             onegin_ptr->buffer_ptr[i + 1] = '\0';
             j++;
         }
@@ -50,9 +50,9 @@ int write_test_to_file(Text* onegin_ptr){
         return FILE_ERROR;
     }
 
-    file_output(text_output_file, onegin_ptr->text_start_ptr, onegin_ptr->lines_count);
+    file_output(text_output_file, onegin_ptr->text_ptr, onegin_ptr->lines_count);
 
-    file_reversed_output(text_output_file, onegin_ptr->text_end_ptr, onegin_ptr->lines_count);
+    file_reversed_output(text_output_file, onegin_ptr->text_ptr, onegin_ptr->lines_count);
 
     write_original_text(text_output_file, onegin_ptr->buffer_ptr, onegin_ptr->file_symbols);
 
@@ -61,8 +61,7 @@ int write_test_to_file(Text* onegin_ptr){
     printf(GREEN("SUCCESSFUL REWRITE ONEGIN LINES IN 3 MODES!!!\n"));
 
     FREE(onegin_ptr->buffer_ptr);
-    FREE(onegin_ptr->text_start_ptr);
-    FREE(onegin_ptr->text_end_ptr);
+    FREE(onegin_ptr->text_ptr);
 
     return SUCCESS;
 }

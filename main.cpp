@@ -16,7 +16,7 @@
 #include "struct_text.h"
 #include "terminal_calls.h"
 
-//! quick_sort
+typedef int (*my_cmp_t) (const void*, const void*);
 
 /*!
     The main function
@@ -70,13 +70,21 @@ int main(const int argc, char* const *argv) {
         read_text_from_file(&onegin);
     }
 
-    if (onegin.file_symbols == 0) {
+    if (onegin.file_symbols == 0) {                 //!
         printf(RED("No founded your file!\n"));
 
         return FILE_ERROR;
     }
 
-    my_sort(&onegin, default_compare, reversed_compare);
+
+    my_cmp_t correct_cmp = struct_cmp;
+    my_sort((void*)onegin.text_ptr, onegin.lines_count, sizeof(str_info), correct_cmp); //!
+
+    my_cmp_t correct_cmp_reverse = struct_cmp_reverse;
+    my_sort((void*)onegin.text_ptr, onegin.lines_count, sizeof(str_info), correct_cmp_reverse); //!
+
+
+    //my_sort((void*)onegin.text_ptr->text_start, onegin.lines_count, sizeof(char*), reversed_compare);
 
     write_test_to_file(&onegin);
 

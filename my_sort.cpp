@@ -3,12 +3,11 @@
     File with functions, what sort onegin lines
 */
 
-#include "my_sort.h"
-
 #include <stdlib.h>
 #include <string.h>
 
 #include "my_assert.h"
+#include "my_sort.h"
 #include "my_string.h"
 
 /*!
@@ -33,23 +32,18 @@ void void_swap(void* first_ptr, void* second_ptr, size_t elem_size) {
     The function what sort the text lines (using BubbleSort algorithm)
     \param [out]  onegin_ptr - the pointer on struct with info about Onegin
     \param  [in]  comp_func1 - the pointer on first comparate function
-    \param  [in]  comp_func2 - the pointer on second comparate function
+
 */
-void my_sort(Text* onegin, int (*comp_func1)(const void*, const void*), int (*comp_func2)(const void*, const void*)) {
-    ASSERT(onegin     != NULL, "Null pointer was passed");
-    ASSERT(comp_func1 != NULL, "Null pointer was passed");
-    ASSERT(comp_func2 != NULL, "Null pointer was passed");
+void my_sort(void* arr, size_t elem_count, size_t elem_size, int (*comp_func)(const void*, const void*)) {
+    ASSERT(arr       != NULL, "Null pointer was passed");
+    ASSERT(comp_func != NULL, "Null pointer was passed");
 
-    for (int i = 0; i < onegin->lines_count - 1; i++) {
-        for (int j = 0; j < onegin->lines_count - 1; j++) {
-            if (comp_func1(onegin->text_start_ptr[j],
-                           onegin->text_start_ptr[j + 1]) > 0) {
-                void_swap(&onegin->text_start_ptr[j], &onegin->text_start_ptr[j + 1], sizeof(onegin->text_start_ptr[j]));
-            }
+    size_t data = (size_t)(arr);
 
-            if (comp_func2(onegin->text_end_ptr[j],
-                           onegin->text_end_ptr[j + 1]) > 0) {
-                void_swap(&onegin->text_end_ptr[j], &onegin->text_end_ptr[j + 1], sizeof(onegin->text_end_ptr[j]));
+    for (size_t i = 0; i < elem_count; i++) {
+        for (size_t j = i; j < elem_count; j++) {
+            if (comp_func((const void*)(data + i * elem_size), (const void*)(data + j * elem_size)) > 0) {
+                void_swap((void*)(data + i * elem_size), (void*)(data + j * elem_size), elem_size);
             }
         }
     }
@@ -70,6 +64,20 @@ int default_compare(const void* arg1_ptr, const void* arg2_ptr) {
     return my_strcmp(first_str_ptr, second_str_ptr);
 }
 
+int struct_cmp(const void *s1, const void *s2) {
+    const str_info *s1_typed = (const str_info*) s1;
+    const str_info *s2_typed = (const str_info*) s2;
+
+    return my_strcmp(s1_typed->text_start, s2_typed->text_start);
+}
+
+int struct_cmp_reverse(const void *s1, const void *s2) {
+    const str_info *s1_typed = (const str_info*) s1;
+    const str_info *s2_typed = (const str_info*) s2;
+
+    return reversed_strcmp(s1_typed->text_end, s2_typed->text_end);
+}
+
 /*!
     The function what prepare the parametrs (from void*) for launch the reversed compare function
     \param  [in]  arg1_ptr - the pointer on first comparate function
@@ -79,42 +87,31 @@ int reversed_compare(const void* arg1_ptr, const void* arg2_ptr) {
     ASSERT(arg1_ptr != NULL, "Null pointer was passed");
     ASSERT(arg2_ptr != NULL, "Null pointer was passed");
 
-    const char*  first_str_ptr = (const char*)(arg1_ptr);
-    const char* second_str_ptr = (const char*)(arg2_ptr);
+    const char*  first_str_ptr = (const char*)(arg1_ptr) - 1;
+    const char* second_str_ptr = (const char*)(arg2_ptr) - 1;
 
     return reversed_strcmp(first_str_ptr, second_str_ptr);
 }
 
 /* int partition(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2)){
-    char** data = (char**)arr;
-    char* pivot = *(data + start + 1);
-    //char* left = *(data + start);
-    //char* right = *(data + (end - 1));
+    char* data = (char*)arr;
+    char* pivot = data + elem_size * start;
+    char* left = data + elem_size * (start + 1);
+    char* right = data + elem_size * end;
 
-    int pi = start;
-    while (*(data + start) < *(data + (end - 1))) {
-        while (comp_func((void*)(*(data + start)), (void*)(pivot)) <= 0 &&
-               (size_t)(*(data + start)- *data) / elem_size <= (size_t)(end - 1)) {
-                start++;
+    while (left <= right) {
+        while (left <= right && comp_func(left, pivot) <= 0) {
+            left += elem_size;
         }
-
-        while (comp_func((void*)(*(data + (end - 1))), (void*)(pivot)) >= 0 &&
-               (size_t)(*(data + (end - 1)) - *data) >= (size_t)(*(data + start) - *data)) {
-                --end;
+        while (left <= right && comp_func(right, pivot) > 0) {
+            right -= elem_size;
         }
-
-        if (*(data + start) < *(data + (end - 1))) {
-            printf("%s %s\n", *(data + start), *(data + end - 1));
-            printf("------------------\n");
-            void_swap((void*)((data + start)), (void*)((data + end - 1)), elem_size);
-            printf("%s %s\n", *(data + start), *(data + end - 1));
+        if (left < right) {
+            void_swap(left - elem_size, right, elem_size);
         }
-        printf("!");
     }
-
-    void_swap((void*)((data + pi)), (void*)((data + end - 1)), elem_size);
-
-    return (int)((*(data + end - 1) - *data) / elem_size);
+    void_swap(pivot, right, elem_size);
+    return (int)((right - data) / elem_size);
 }
 
 void my_quick_sort(void* arr, int start, int end, size_t elem_size, int(*comp_func)(void* p1, void* p2)) {
