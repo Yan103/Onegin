@@ -1,7 +1,7 @@
 # **Onegin**
 
 
-<img align="left" width="160" height="265" src="img/img1.jpg">
+<img align="left" width="160" height="260" src="img/img1.jpg">
 
 <div style="margin-left: 170px;">
 
