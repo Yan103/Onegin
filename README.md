@@ -11,7 +11,7 @@ The program receives a text file as input, which contains the text of the work *
 
 </div>
 
-Sorting is implemented using the *BubbleSort* and *QuickSort* algorithm, which get comparators with the sorting type.
+Sorting is implemented using the *BubbleSort* and *QuickSort* algorithms, which get comparators with the sorting type.
 
 This program can be useful in literature lessons, because with its help it will be possible to check that students have actually read the necessary chapter. Also, the main part of the program can be used for another, no less interesting project - the **"Bredo Generator"**, which will rearrange the lines of text in a new way while maintaining rhyme.
 
