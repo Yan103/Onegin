@@ -1,4 +1,4 @@
-Default sorted Onegin text:
+DEFAULT SORTED ONEGIN TEXT:
 After a fine career, his father
 A mild rebuke was his worst mark,
 And bred upon the Neva's brink,
@@ -70,7 +70,7 @@ While serious topics were disputing,
 Without preliminary feeler
 With this the hero of my tale:
 
-Reversed sorted Onegin text:
+REVERSED SORTED ONEGIN TEXT:
 Friends of my Ruslan and Lyudmila,
 It was goodbye, Monsieur l'Abbé.
 Of entertaining the half-dead:
@@ -142,7 +142,7 @@ Onegin was assessed by many
 Reluctant to exhaust the boy,
 Treated his lessons as a ploy.
 
-Original Onegin text:
+ORIGINAL ONEGIN TEXT:
 My uncle - high ideals inspire him;
 But when past joking he fell sick,
 He really forced one to admire him -
