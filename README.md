@@ -40,7 +40,7 @@ When the program starts, the program reads the original text of the work **"Euge
 
 The example of what text sorted in **normal mode** looks like:
 
-![Alt text](img/ex1.png)
+<div style="text-align:center"><img src="img/ex1.png" /></div>.
 
 Output text sorted in **reverse order**:
 
