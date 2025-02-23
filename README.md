@@ -40,7 +40,9 @@ When the program starts, the program reads the original text of the work **"Euge
 
 The example of what text sorted in **normal mode** looks like:
 
-<div style="text-align:center"><img src="img/ex1.png" /></div>.
+<img align="center" width="160" height="255" src="img/img1.jpg">
+
+<div style="margin-center: 300px;">
 
 Output text sorted in **reverse order**:
 
